@@ -11,6 +11,10 @@ subparser_commands: dict[str, SubparserCommand] = {
             "command_name": "path",
             "help": "Path to initialize the repository"
         }]
+    },
+    "trial": {
+        "help": "Doesn't do anything but is used to test the CLI",
+        "sub_cmds": []
     }
 }
 

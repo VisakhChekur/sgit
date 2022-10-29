@@ -1,6 +1,7 @@
 from pathlib import Path
 from configparser import ConfigParser
 
+
 def initialize_repository(path: str):
         
         # Directory status
@@ -29,6 +30,29 @@ def initialize_repository(path: str):
             config.write(f)
 
         print(f"\nInitialized repository at `{repo_dir.resolve()}`")
+
+def find_git_repo_path(path: str) -> Path:
+    """Tries to find a git repository by looking for a '.git' directory
+    up the folder structure recursively until the root is reached."""
+
+    repo_path = Path(path)
+    root = repo_path.root
+
+    while str(repo_path) != root:
+        git_dir = repo_path / ".git"
+        if git_dir.is_dir():
+            return repo_path
+        repo_path = repo_path / ".."
+
+    # Checking the root directory as well
+    if (repo_path / ".git").is_dir():
+        return repo_path
+    
+    raise Exception("git repository not found")
+
+
+def make_path(repo: str | Path, *paths: str | Path):
+    return Path(repo).joinpath(*paths)
 
 def create_default_config():
     

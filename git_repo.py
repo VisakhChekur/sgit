@@ -1,15 +1,15 @@
 from configparser import ConfigParser
 from pathlib import Path
 
-from file_handler import FileHandler
+from helpers import make_path
 from exceptions import ConfigFileNotFound, NotGitRepoException
 
 class GitRepository:
     
-    def __init__(self, path: str):
+    def __init__(self, path: str | Path):
 
         # Represents the .git directory
-        self.git_dir = FileHandler.make_path(path, ".git")
+        self.git_dir = make_path(path, ".git")
 
         # Working tree i.e the directory that git is watching
         self.working_tree = Path(path)
@@ -18,7 +18,7 @@ class GitRepository:
         if not self.git_dir.is_dir():
             raise NotGitRepoException(f"no git repository found at '{self.git_dir.resolve()}'")
         
-        config_path = FileHandler.make_path(path, ".git", "config")
+        config_path = make_path(path, ".git", "config")
         if not config_path.exists():
             raise ConfigFileNotFound("config file was not found in `.git` directory")
         

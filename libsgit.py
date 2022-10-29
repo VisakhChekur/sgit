@@ -11,6 +11,8 @@ def main():
 
         case "init":
             command_handlers.handle_init(args.path)
+        case "trial":
+            command_handlers.handle_trial(".")
         case _:
             print("Invalid command")
             return
