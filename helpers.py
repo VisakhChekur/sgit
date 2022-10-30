@@ -31,7 +31,7 @@ def initialize_repository(path: str):
 
         print(f"\nInitialized repository at `{repo_dir.resolve()}`")
 
-def find_git_repo_path(path: str) -> Path:
+def find_git_repo_path(path: str=".") -> Path:
     """Tries to find a git repository by looking for a '.git' directory
     up the folder structure recursively until the root is reached."""
 
